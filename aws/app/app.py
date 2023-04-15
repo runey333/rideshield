@@ -32,7 +32,16 @@ def lambda_handler(event, context):
         edges = cv2.Canny(img[int(3 * (img.shape[0]/4)):], 100, 200)
         density = cv2.countNonZero(edges)/((img.shape[0]/4) * img.shape[1])
         
-        result = {"risk" : density, "bucket" : bucket, "key" : key}
+        #TODO: incorporate location and insert as GeoIndex of [lng, lat] arrays
+        result = { 
+            "risk" : density, 
+            "bucket" : bucket, 
+            "key" : key, 
+            "coords" : {
+                "type": "Point", 
+                "coordinates": [ -137, 40 ] 
+            }
+        }
         
         try:
             client.admin.command('ping')
@@ -40,7 +49,6 @@ def lambda_handler(event, context):
         except Exception as e:
             print(e)
         
-        #TODO: incorporate location and insert as GeoIndex of [lng, lat] arrays
         db = client.get_database(MONGO_DB_NAME)
         imgs = db.get_collection(MONGO_COLLECTION_NAME)
         imgs.insert_one(result)
