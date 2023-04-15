@@ -30,8 +30,8 @@
 #define HREF_GPIO_NUM     23
 #define PCLK_GPIO_NUM     22
 
-const char* ssid = "CalVisitor";
-const char* password = "";
+const char* ssid = "Pikachu-5G";
+const char* password = "LambdaFunction2022!";
 
 const char* s3_endpoint = "s3.amazonaws.com";
 const char* s3_bucket = "rideshield-img";
@@ -48,7 +48,7 @@ void take_save_photo( void ) {
     HTTPClient http;
 
     // Set the destination URL for the PUT request
-    http.begin("http://rideshield-img.s3.us-east-2.amazonaws.com/ligma.jpeg");
+    http.begin("http://rideshield.s3.us-east-2.amazonaws.com/ligma.jpeg");
   
     // Set the content type header for the request
     http.addHeader("Content-Type", "image/jpeg");
@@ -57,6 +57,7 @@ void take_save_photo( void ) {
     //String requestBody = "This is the data I want to send";
     //http.addHeader("Content-Length", String(requestBody.length())); // Set the content length header
     int httpResponseCode = http.sendRequest("PUT", (uint8_t*)fb->buf, fb->len); // Send the PUT request and get the HTTP response code
+    Serial.println(http.getString());
   
     // Check the response code to see if the request was successful
     if (httpResponseCode > 0) {
