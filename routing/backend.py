@@ -9,7 +9,7 @@ import io
 
 TRANSPORT_MODES = ["driving", "walking", "bicycling", "transit"]
 gmaps = googlemaps.Client(key=os.getenv("GMAPS_API_KEY", ""))
-uri = "mongodb+srv://arunsundaresan1:iQoaQme5BU6Axvrm@cluster0.owndbh6.mongodb.net/?retryWrites=true&w=majority"
+uri = ""
 client = MongoClient(uri)
 s3 = boto3.client('s3')
 
